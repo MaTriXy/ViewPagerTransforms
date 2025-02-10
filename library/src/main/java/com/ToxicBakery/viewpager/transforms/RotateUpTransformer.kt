@@ -14,16 +14,27 @@
  * limitations under the License.
  */
 
-package transforms.viewpager.toxicbakery.com.viewpagertransforms;
+package com.ToxicBakery.viewpager.transforms
 
-import android.app.Application;
-import android.test.ApplicationTestCase;
+import android.view.View
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    public ApplicationTest() {
-        super(Application.class);
+open class RotateUpTransformer : ABaseTransformer() {
+
+    override val isPagingEnabled: Boolean
+        get() = true
+
+    override fun onTransform(page: View, position: Float) {
+        val width = page.width.toFloat()
+        val rotation = ROT_MOD * position
+
+        page.pivotX = width * 0.5f
+        page.pivotY = 0f
+        page.translationX = 0f
+        page.rotation = rotation
     }
+
+    companion object {
+        private const val ROT_MOD = -15f
+    }
+
 }

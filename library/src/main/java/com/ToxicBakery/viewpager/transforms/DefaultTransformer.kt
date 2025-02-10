@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.ToxicBakery.viewpager.transforms;
+package com.ToxicBakery.viewpager.transforms
 
-import android.view.View;
+import android.view.View
 
-public class StackTransformer extends ABaseTransformer {
+open class DefaultTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		view.setTranslationX(position < 0 ? 0f : -view.getWidth() * position);
-	}
+    public override val isPagingEnabled: Boolean
+        get() = true
+
+    override fun onTransform(page: View, position: Float) {}
 
 }

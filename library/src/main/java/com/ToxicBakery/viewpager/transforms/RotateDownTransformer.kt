@@ -14,20 +14,27 @@
  * limitations under the License.
  */
 
-package com.ToxicBakery.viewpager.transforms;
+package com.ToxicBakery.viewpager.transforms
 
-import android.view.View;
+import android.view.View
 
-public class FlipHorizontalTransformer extends ABaseTransformer {
+open class RotateDownTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		final float rotation = 180f * position;
+    override val isPagingEnabled: Boolean
+        get() = true
 
-		view.setAlpha(rotation > 90f || rotation < -90f ? 0 : 1);
-		view.setPivotX(view.getWidth() * 0.5f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationY(rotation);
-	}
+    override fun onTransform(page: View, position: Float) {
+        val width = page.width.toFloat()
+        val height = page.height.toFloat()
+        val rotation = ROT_MOD * position
+
+        page.pivotX = width * 0.5f
+        page.pivotY = height
+        page.rotation = rotation
+    }
+
+    companion object {
+        private const val ROT_MOD = 18.75f
+    }
 
 }

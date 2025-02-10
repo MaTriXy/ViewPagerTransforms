@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.ToxicBakery.viewpager.transforms;
+package com.ToxicBakery.viewpager.transforms
 
-import android.view.View;
+import android.view.View
 
-public class CubeOutTransformer extends ABaseTransformer {
+open class CubeInTransformer : ABaseTransformer() {
 
-	@Override
-	protected void onTransform(View view, float position) {
-		view.setPivotX(position < 0f ? view.getWidth() : 0f);
-		view.setPivotY(view.getHeight() * 0.5f);
-		view.setRotationY(90f * position);
-	}
+    public override val isPagingEnabled: Boolean
+        get() = true
 
-	@Override
-	public boolean isPagingEnabled() {
-		return true;
-	}
+    override fun onTransform(page: View, position: Float) {
+        // Rotate the fragment on the left or right edge
+        page.pivotX = if (position > 0) 0f else page.width.toFloat()
+        page.pivotY = 0f
+        page.rotationY = -90f * position
+    }
 
 }
